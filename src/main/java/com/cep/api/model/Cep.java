@@ -30,12 +30,8 @@ public class Cep {
     @NotEmpty
     private String codigoLoja;
 
-    @NotNull
-    @NotEmpty
     private long faixaInicio;
 
-    @NotNull
-    @NotEmpty
     private long faixaFim;
     
 }

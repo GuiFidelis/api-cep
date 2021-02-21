@@ -1,9 +1,11 @@
 package com.cep.api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cep.api.model.Cep;
 import com.cep.api.repository.CepRepository;
+import com.cep.api.error.ResourceConflictException;
 import com.cep.api.error.ResourceNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +17,46 @@ public class CepService {
     @Autowired
 	CepRepository cepRepository;
 
-    public List< Cep> buscarTodos(){
+    public Cep compararCep(long cep){
+        return  cepRepository.findByFaixaInicioLessThanEqualAndFaixaFimGreaterThanEqual(cep, cep);
+           
+    }
+   
+    public List< Cep> localizaTodos(){
 		return cepRepository.findAll();
 	}
 
-    public Cep localizaCep(long cep) throws ResourceNotFoundException{
-        return  cepRepository.findByFaixaInicioLessThanEqualAndFaixaFimGreaterThanEqual(cep, cep)
-            .orElseThrow(() -> new ResourceNotFoundException("Faixa de CEP não encontrada"));
+    public Cep localizaId(long id) throws ResourceNotFoundException{
+        return  cepRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Id não encontrado"));
            
     }
+    public Cep localizaCep(long cep){
+        Cep cepEncontrado = compararCep(cep);
+
+        if (cepEncontrado == null) {
+			throw new ResourceNotFoundException("cep nao encontrado");
+		} else{
+            return cepEncontrado;
+        } 
+   
+    }
+
+    public Cep cadastrar(Cep cep) {
+		 Cep cepInicio = compararCep(cep.getFaixaInicio());
+         Cep cepFim = compararCep(cep.getFaixaFim());
+
+		if (cepInicio != null || cepFim != null) {
+			throw new ResourceConflictException("Conflito com área de cep já cadastrado");
+		} else{
+            return cepRepository.save(cep);
+        } 
+
+	}
+
+
+
+
 }
 
    

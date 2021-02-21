@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,13 +24,23 @@ public class CepController {
 
     @GetMapping("/todos")
 	public ResponseEntity<List< Cep>> buscarLojas() {
-		List< Cep > lojasBuscadas= cepService.buscarTodos();
+		List< Cep > lojasBuscadas= cepService.localizaTodos();
 		return new ResponseEntity<>(lojasBuscadas, HttpStatus.OK);
 	}
 
-    @GetMapping("/{cep}")
-	public Cep encontrarPorCEP(@PathVariable long cep) {
-        return cepService.localizaCep(cep);
+    @GetMapping("/buscaId/{id}")
+	public ResponseEntity<Cep> findById(@PathVariable long id) {
+        return new ResponseEntity<>(cepService.localizaId(id), HttpStatus.OK);
 	}
 
+    @GetMapping("/buscaCep/{cep}")
+	public ResponseEntity<Cep> findByCep(@PathVariable long cep) {
+        return new ResponseEntity<>(cepService.localizaCep(cep), HttpStatus.OK);
+	}
+
+    @PostMapping("/cadastrar")
+    public ResponseEntity<Cep> post(@RequestBody Cep cep){
+        Cep cepCadastrado = cepService.cadastrar(cep);
+        return new ResponseEntity<>(cepCadastrado, HttpStatus.CREATED);
+    }
 }

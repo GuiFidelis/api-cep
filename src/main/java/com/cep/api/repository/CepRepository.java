@@ -12,5 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface CepRepository extends JpaRepository<Cep, Long> {
     public List<Cep> findAllByCodigoLojaContainingIgnoreCase(String codigoLoja);
 
-    Optional<Cep> findByFaixaInicioLessThanEqualAndFaixaFimGreaterThanEqual(long faixaInicio, long faixaFim);
+    Optional<Cep> findById(long id);
+
+    Cep findByFaixaInicioLessThanEqualAndFaixaFimGreaterThanEqual(long faixaInicio, long faixaFim);
+    
 }
