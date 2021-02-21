@@ -13,6 +13,7 @@ public interface CepRepository extends JpaRepository<Cep, Long> {
     public List<Cep> findAllByCodigoLojaContainingIgnoreCase(String codigoLoja);
 
     Optional<Cep> findById(long id);
+    
 
     Cep findByFaixaInicioLessThanEqualAndFaixaFimGreaterThanEqual(long faixaInicio, long faixaFim);
     

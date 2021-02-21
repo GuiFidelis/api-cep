@@ -54,6 +54,23 @@ public class CepService {
 
 	}
 
+    public Cep alterar(Cep cep) {
+        Cep cepAlteracao = localizaId(cep.getId());
+        Cep cepInicio = compararCep(cep.getFaixaInicio());
+        Cep cepFim = compararCep(cep.getFaixaFim());
+
+        if(cepAlteracao != null){
+            if (cepInicio != null || cepFim != null) {
+                throw new ResourceConflictException("Conflito com área de cep já cadastrado");
+             } else{
+                 return cepRepository.save(cep);
+             } 
+             
+         }else{
+            throw new ResourceNotFoundException("Id não encontrado");
+         }
+   }
+
 
     public void deletar(long id){
         Cep cepEncontrado = localizaId(id);
