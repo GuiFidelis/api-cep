@@ -55,7 +55,14 @@ public class CepService {
 	}
 
 
-
+    public void deletar(long id){
+        Cep cepEncontrado = localizaId(id);
+        if (cepEncontrado == null) {
+            throw new ResourceConflictException("Não foi possivel deletar esse Id");
+           }else {
+            	cepRepository.delete(cepEncontrado);
+           	}
+    }
 
 }
 
