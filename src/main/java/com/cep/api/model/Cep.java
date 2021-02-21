@@ -17,15 +17,16 @@ import lombok.ToString;
 @Entity
 @Table(name = "cep")
 @NoArgsConstructor
-@ToString(exclude="id")
-@Getter @Setter
+@ToString(exclude = "id")
+@Getter
+@Setter
 public class Cep {
 
     @Id
     @Column
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @NotNull
     @NotEmpty
     private String codigoLoja;
@@ -33,5 +34,5 @@ public class Cep {
     private long faixaInicio;
 
     private long faixaFim;
-    
+
 }
