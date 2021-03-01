@@ -14,6 +14,6 @@ public interface CepRepository extends JpaRepository<Cep, Long> {
 
     Optional<Cep> findById(long id);
 
-    Cep findByFaixaInicioLessThanEqualAndFaixaFimGreaterThanEqual(long faixaInicio, long faixaFim);
+    public Cep find
 
 }

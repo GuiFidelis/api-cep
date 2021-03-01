@@ -22,7 +22,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Loteria API").description("API Loteria Orange Talents").version("1.0")
+        return new ApiInfoBuilder().title("CEP API").description("API de cadastro de cep").version("1.0")
                 .contact(contact()).build();
     }
 
